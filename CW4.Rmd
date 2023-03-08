@@ -1,0 +1,60 @@
+---
+title: "Classwork 4"
+author: "Ama Konadu Appau"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+Question 1
+
+```{r}
+x <- list(2, 4, 5, 9, 1)
+y <- list(8, 7, 2, 8, 3)
+z <- list(1, 8, 5, 4, 2)
+(pmap_dbl(list(x,y,z), sum))^2
+```
+
+Question 2
+
+```{r}
+tribble( ~Student,  ~Gender,    ~Salary,
+                   "John",   "Male",       65000,
+                   "Alice",  "Female",    73000,
+                    "Juan",   "Male",       66000,
+                    "Beth",  "Female",    71500,
+                    "Denise", "Female",  82000
+) -> table
+table
+table %>% 
+  pmap_chr(~ str_glue(" {..1} who is {..2}, has a salary that is {..3} dollars per year"))
+```
+
+Question 3
+```{r}
+c <- matrix( nrow = 5, ncol = 5)
+for (m in 1:5) {
+  for (n in 1:5) {
+    c[m, n] <- (m + n)
+  }
+}
+print(c)
+```
+Question 4
+```{r}
+b <- 1:20
+for (i in b) {
+  if (i == 5){
+    next
+  }
+  else if (i == 10){
+    next
+  }
+  print(i)
+}
+
+```
+

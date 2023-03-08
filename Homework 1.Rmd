@@ -1,0 +1,83 @@
+---
+title: "Homework 1"
+author: "Ama Konadu Appau & Akash Agrawal Bejarano"
+date: "`r Sys.Date()`"
+output: word_document
+---
+```{r}
+library(tidyverse)
+library(nycflights13)
+library(lubridate)
+library(dplyr)
+```
+
+Question 1
+```{r}
+(("2020-06-06") %--% ("2021-07-14"))/days(1) 
+```
+Question 2
+```{r}
+leap_year(1988)
+```
+Question 3
+```{r}
+leap_year(1989)
+```
+Question 4
+There is no standard value of months in terms of seconds since months have different numbers of days.
+
+Question 5
+```{r}
+(("1962-04-11") %--%today())/years(1) 
+```
+
+Question 6
+```{r}
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    arr_time = make_datetime_100(year, month, day, arr_time),
+  ) %>% 
+  select(origin, dest,carrier,arr_time,dep_time) ->flights_dt
+flights_dt
+```
+Question 7
+```{r}
+flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    arr_time = make_datetime_100(year, month, day, arr_time),
+    sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
+    sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
+  ) %>% 
+ select(origin, dest, ends_with("delay"), ends_with("time")) -> flights_dt1
+
+flights_dt1 %>% 
+  filter(month(dep_time)>=4, month(dep_time)<=10) -> flights_dt_7   
+  
+ ggplot(flights_dt_7, aes(x = dep_time)) + geom_freqpoly(bins = 100)
+```
+
+Question 8
+```{r}
+flights_dt%>% 
+  filter(origin=="LGA")%>%
+  filter(dest=="DFW")%>%
+  filter(carrier=="AA")%>%
+  slice(115:125)
+
+```
+Question 9
+```{r}
+d <-"2013-01-09 16:16:00 "
+w <-"2013-01-09 19:17:00" 
+difftime(w,d,units = "mins")
+```
+
+
+

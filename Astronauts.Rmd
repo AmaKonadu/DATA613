@@ -1,0 +1,117 @@
+---
+title: "Astronauts"
+author: "Ama Konadu Appau"
+date: "`r Sys.Date()`"
+output: html_document
+---
+Question 1
+```{r}
+astro<-read.csv("Astronauts.csv")
+```
+
+Question 2
+```{r}
+library(ggplot2)
+nrow(astro)
+ncol(astro)
+```
+There are 357 astronauts and 19 descriptive column variables
+
+Question 3
+```{r}
+library(dplyr)
+astro%>%
+  filter(Gender=="Female")%>%
+  select(Name)
+```
+Question 4
+```{r}
+astro%>%
+  filter(Gender=="Female")%>%
+  select(Name,Military.Rank,Military.Branch)
+```
+Question 5
+```{r}
+astro%>%
+  filter(Gender=="Female")%>%
+  filter(Status=="Active")%>%
+  count()
+```
+
+Question 6
+```{r}
+ggplot(data = astro) +
+  geom_bar(mapping = aes(x = Gender, fill = Space.Walks))
+```
+
+Question 7
+```{r}
+astro%>%
+  filter(Gender=="Female")%>%
+  mutate(n=1)%>%
+  select(Name,Gender,Space.Walks,n)%>%
+  filter(Space.Walks>0)
+```
+
+Question 8
+```{r}
+ggplot(data=astro) +
+  geom_boxplot(mapping = aes(y= Space.Walks))
+```
+
+IQR is 2
+
+Question 9
+```{r}
+ggplot(data=astro) +
+  geom_boxplot(mapping = aes(y= Space.Walks,x=Gender))
+```
+
+Question 10
+```{r}
+ggplot(data=astro) +
+  geom_histogram(mapping = aes(x=Space.Walks,fill="red"),binwidth = 1.125)
+```
+
+Question 11
+```{r}
+w=astro%>%
+  filter(Gender=="Female")%>%
+  select(Space.Walks)
+mean(w$Space.Walks)
+
+h=astro%>%
+  filter(Gender=="Male")%>%
+  select(Space.Walks)
+mean(h$Space.Walks)
+```
+
+Question 12
+```{r}
+ggplot(data=astro) +
+  geom_point(mapping = aes(x=Space.Walks,y=Space.Flights))
+```
+
+
+Looks like a definite shape pattern,not a linear relationship
+
+Question 13
+```{r}
+astro%>%
+  filter(Name=="Mae C. Jemison")%>%
+  select(Undergraduate.Major,Graduate.Major, Alma.Mater)
+```
+Question 14
+```{r}
+astro%>%
+  filter(Gender=="Female")%>%
+  select(Military.Branch)%>%
+  filter(Military.Branch=="US Air Force (Retired)")%>%
+  count()
+astro%>%
+  filter(Gender=="Female")%>%
+  select(Military.Branch)%>%
+  filter(Military.Branch=="US Air Force")%>%
+  count()
+```
+
