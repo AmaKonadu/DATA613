@@ -1,0 +1,14 @@
+---
+title: "Gitbash"
+author: "Ama Konadu Appau"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+diamonds%>%
+  select(price, color, x)
+```
+
